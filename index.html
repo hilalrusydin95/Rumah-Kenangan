@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rumah Kenangan — Satu Kelas, Sejuta Cerita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Fallback font yang bulat, ramah, dan serasi jika font Gliker lokal belum ada di perangkat pengunjung -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ========================================================
+   1. FONT GLIKER & FALLBACK
+   Jika Anda memiliki file Gliker.woff2 / Gliker.otf / Gliker.ttf,
+   cukup letakkan di satu folder yang sama dengan file index.html
+   ======================================================== */
+@font-face {
+  font-family: 'Gliker';
+  src: local('Gliker'), local('Gliker Regular'), local('Gliker-Regular'),
+       url('fonts/Gliker-Regular.woff2') format('woff2'),
+       url('fonts/Gliker.woff2') format('woff2'),
+       url('Gliker-Regular.woff2') format('woff2'),
+       url('Gliker.woff2') format('woff2'),
+       url('Gliker.otf') format('opentype'),
+       url('Gliker.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gliker';
+  src: local('Gliker Bold'), local('Gliker-Bold'), local('Gliker SemiBold'),
+       url('fonts/Gliker-Bold.woff2') format('woff2'),
+       url('Gliker-Bold.woff2') format('woff2'),
+       url('Gliker-Bold.otf') format('opentype'),
+       url('Gliker-Bold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========================================================
+   2. PALET WARNA HANGAT & HUMANIS (Bukan Template Kaku)
+   Terinspirasi dari kehangatan almamater oranye kelas & album kenangan
+   ======================================================== */
+:root {
+  --bg-primary: #FAF7F2;          /* Krem kertas album hangat */
+  --bg-secondary: #F3ECE2;        /* Oat hangat untuk seksi kontras */
+  --bg-card: #FFFFFF;             /* Kartu foto putih bersih */
+  --ink: #221F1D;                 /* Teks arang hangat lembut */
+  --ink-soft: #5C554E;            /* Teks sekunder */
+  --line: #E8E0D5;                /* Garis pembatas halus */
+  --amber: #EA580C;               /* Oranye almamater hangat */
+  --amber-hover: #C2410C;
+  --amber-soft: rgba(234, 88, 12, 0.12);
+  --amber-glow: rgba(234, 88, 12, 0.28);
+  --dark-overlay: #151311;
+  --dark-text: #FAF6EE;
+  
+  /* Seluruh tulisan web menggunakan font Gliker */
+  --font-all: 'Gliker', 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  --ease: cubic-bezier(.22, .7, .2, 1);
+  --shadow-card: 0 10px 24px -6px rgba(45, 30, 15, 0.08), 0 4px 8px -4px rgba(45, 30, 15, 0.04);
+  --shadow-hover: 0 18px 36px -8px rgba(234, 88, 12, 0.18), 0 8px 16px -6px rgba(45, 30, 15, 0.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-primary);
+  color: var(--ink);
+  font-family: var(--font-all);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video { display: block; max-width: 100%; }
+button, input, select, textarea { font-family: var(--font-all); color: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-all);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+}
+
+/* ========================================================
+   3. NAVIGATION BAR
+   ======================================================== */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px clamp(18px, 4vw, 48px);
+  color: var(--dark-text);
+  transition: background .35s var(--ease), color .35s var(--ease), padding .35s var(--ease);
+}
+.nav.solid {
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--ink);
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 4px 20px rgba(40, 30, 20, 0.05);
+}
+.brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+.brand-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--amber);
+  display: inline-block;
+  box-shadow: 0 0 10px var(--amber);
+}
+
+.nav-r {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: .88rem;
+}
+.nav-r a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 99px;
+  display: none;
+}
+@media(min-width:768px){ .nav-r a { display: inline-block; } }
+.nav.solid .nav-r a:hover { background: var(--bg-secondary); }
+
+.music-ctrls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sound-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px;
+  border: 1px solid rgba(250, 246, 238, 0.4);
+  background: rgba(20, 18, 16, 0.35);
+  backdrop-filter: blur(8px);
+  border-radius: 99px;
+  font-size: .82rem;
+  font-weight: 500;
+  color: inherit;
+  transition: all .25s var(--ease);
+}
+.nav.solid .sound-btn {
+  border-color: var(--line);
+  background: var(--bg-card);
+  color: var(--ink);
+  box-shadow: var(--shadow-card);
+}
+.sound-btn:hover { border-color: var(--amber); transform: translateY(-1px); }
+.sound-btn.playing {
+  border-color: var(--amber);
+  background: var(--amber);
+  color: #FFF;
+}
+.bars { display: flex; gap: 2.5px; align-items: flex-end; height: 13px; }
+.bars i { width: 2.5px; background: currentColor; height: 3px; border-radius: 2px; }
+.sound-btn.playing .bars i { animation: eq 1s ease-in-out infinite alternate; }
+.sound-btn.playing .bars i:nth-child(2){ animation-delay: .2s; }
+.sound-btn.playing .bars i:nth-child(3){ animation-delay: .45s; }
+.sound-btn.playing .bars i:nth-child(4){ animation-delay: .15s; }
+@keyframes eq { 0% { height: 3px; } 100% { height: 13px; } }
+
+.playlist-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 99px;
+  border: 1px solid rgba(250, 246, 238, 0.4);
+  background: rgba(20, 18, 16, 0.35);
+  backdrop-filter: blur(8px);
+  font-size: .82rem;
+  font-weight: 500;
+  transition: all .25s var(--ease);
+}
+.nav.solid .playlist-trigger {
+  border-color: var(--line);
+  background: var(--bg-card);
+  color: var(--ink);
+}
+.playlist-trigger:hover { border-color: var(--amber); color: var(--amber); }
+
+.manage-btn {
+  padding: 7px 14px;
+  border-radius: 99px;
+  font-size: .82rem;
+  font-weight: 500;
+  border: 1px solid rgba(250, 246, 238, 0.4);
+  background: rgba(20, 18, 16, 0.35);
+  transition: all .25s var(--ease);
+}
+.nav.solid .manage-btn { border-color: var(--line); background: var(--bg-card); color: var(--ink); }
+.manage-btn:hover { background: var(--amber); color: #FFF; border-color: var(--amber); }
+
+/* ========================================================
+   4. HERO DENGAN FOTO KEBERSAMAAN
+   ======================================================== */
+.hero {
+  position: relative;
+  min-height: 96svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(90px, 12vh, 120px) clamp(20px, 5vw, 72px) clamp(36px, 7vh, 76px);
+  color: var(--dark-text);
+  overflow: hidden;
+  background: var(--dark-overlay);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  filter: contrast(1.04) brightness(0.92) saturate(1.08);
+  transform: scale(1.01);
+  transition: transform 18s ease-out;
+}
+.hero:hover .hero-bg img { transform: scale(1.04); }
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(15, 13, 11, 0.94) 0%,
+    rgba(15, 13, 11, 0.65) 45%,
+    rgba(15, 13, 11, 0.28) 75%,
+    rgba(15, 13, 11, 0.45) 100%
+  );
+  pointer-events: none;
+}
+.hero > *:not(.hero-bg) { position: relative; z-index: 2; }
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: rgba(234, 88, 12, 0.22);
+  border: 1px solid rgba(234, 88, 12, 0.5);
+  backdrop-filter: blur(10px);
+  font-size: .84rem;
+  font-weight: 500;
+  color: #FED7AA;
+  width: fit-content;
+  margin-bottom: 14px;
+}
+
+/* Ukuran tulisan "Hal-hal kecil" diperkecil & proporsional */
+.hero h1 {
+  font-size: clamp(1.85rem, 3.8vw, 3.1rem);
+  max-width: 19ch;
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+.hero h1 span { display: block; overflow: hidden; }
+.hero h1 span b {
+  display: block;
+  font-weight: inherit;
+  transform: translateY(105%);
+  animation: rise 1s var(--ease) forwards;
+}
+.hero h1 span:nth-child(2) b { animation-delay: .12s; color: #FED7AA; }
+.hero h1 span:nth-child(3) b { animation-delay: .24s; }
+@keyframes rise { to { transform: none; } }
+
+.hero-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 22px;
+  align-items: flex-end;
+  margin-top: 26px;
+  border-top: 1px solid rgba(250, 246, 238, 0.24);
+  padding-top: 20px;
+}
+.hero-foot p {
+  max-width: 52ch;
+  font-size: 1.02rem;
+  line-height: 1.68;
+  opacity: .94;
+  color: #F5EFE6;
+  font-weight: 400;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 99px;
+  background: var(--amber);
+  color: #FFF;
+  font-weight: 600;
+  font-size: .95rem;
+  text-decoration: none;
+  transition: all .25s var(--ease);
+  box-shadow: 0 8px 24px var(--amber-glow);
+}
+.cta:hover {
+  background: var(--amber-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(234, 88, 12, 0.35);
+}
+
+/* ========================================================
+   5. SECTIONS & FILTERS
+   ======================================================== */
+section { padding: clamp(60px, 9vw, 110px) clamp(20px, 5vw, 72px); }
+.head {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 38px;
+  max-width: 1280px;
+  margin-inline: auto;
+}
+@media(min-width:900px){ .head { grid-template-columns: 1.1fr 1fr; align-items: end; } }
+.head-tag {
+  color: var(--amber);
+  font-size: .86rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 4px;
+}
+.head h2 { font-size: clamp(2rem, 4.2vw, 3.4rem); color: var(--ink); line-height: 1.15; }
+.head p { color: var(--ink-soft); max-width: 48ch; font-size: 1.02rem; }
+
+.filters {
+  max-width: 1280px;
+  margin: 0 auto 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  justify-content: space-between;
+  align-items: center;
+  border-block: 1px solid var(--line);
+  padding: 14px 0;
+}
+.group { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 7px 16px;
+  border-radius: 99px;
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  background: transparent;
+  transition: all .25s var(--ease);
+}
+.chip:hover { background: var(--bg-secondary); color: var(--ink); }
+.chip[aria-pressed=true] {
+  background: var(--amber);
+  color: #FFF;
+  box-shadow: 0 4px 14px var(--amber-glow);
+}
+.count { font-size: .9rem; color: var(--ink-soft); font-weight: 500; }
+
+/* ========================================================
+   6. GALLERY GRID
+   ======================================================== */
+.gallery {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: clamp(140px, 28vw, 220px);
+  grid-auto-flow: dense;
+  gap: clamp(10px, 1.8vw, 20px);
+}
+@media(min-width: 900px){
+  .gallery { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 220px; }
+}
+.tile {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #EAE3D7;
+  border-radius: 14px;
+  opacity: 0;
+  transform: scale(0.97) translateY(10px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease), box-shadow .35s;
+  box-shadow: var(--shadow-card);
+}
+.tile.in { opacity: 1; transform: none; }
+.tile:hover, .tile:focus-visible {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+}
+.tile.t { grid-row: span 2; }
+.tile.w { grid-column: span 2; }
+.tile.f { grid-column: span 2; grid-row: span 2; }
+.tile img, .tile video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.02) saturate(1.05);
+  transition: transform .9s var(--ease);
+}
+.tile:hover img, .tile:focus-visible img { transform: scale(1.05); }
+
+.cap {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 50px 18px 16px;
+  color: var(--dark-text);
+  background: linear-gradient(to top, rgba(18, 15, 12, 0.88) 0%, rgba(18, 15, 12, 0.5) 60%, transparent 100%);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all .35s var(--ease);
+}
+.tile:hover .cap, .tile:focus-visible .cap { opacity: 1; transform: none; }
+@media(hover:none){ .cap { opacity: 1; transform: none; padding-top: 36px; } }
+.cap h3 { font-size: 1.18rem; font-weight: 600; line-height: 1.25; }
+.cap small { font-size: .8rem; opacity: .88; display: block; margin-top: 3px; color: #FED7AA; }
+
+.play-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(250, 247, 242, 0.94);
+  color: var(--amber);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.play-badge::before {
+  content: "";
+  border-left: 10px solid currentColor;
+  border-block: 6px solid transparent;
+  margin-left: 2px;
+}
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--ink-soft);
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 1px dashed var(--line);
+}
+
+/* ========================================================
+   7. TIMELINE PERJALANAN
+   ======================================================== */
+.timeline { background: var(--bg-secondary); border-block: 1px solid var(--line); }
+.tl { max-width: 960px; margin: 0 auto; position: relative; padding-left: 36px; }
+.tl::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--line);
+}
+.tl-fill {
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  width: 2px;
+  background: var(--amber);
+  height: 0;
+}
+.yr {
+  position: relative;
+  display: grid;
+  gap: 6px 36px;
+  padding: 0 0 52px;
+  text-align: left;
+  width: 100%;
+}
+@media(min-width:768px){ .yr { grid-template-columns: 140px 1fr; } }
+.yr::before {
+  content: "";
+  position: absolute;
+  left: -36px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 2px solid var(--ink-soft);
+  transition: all .35s;
+}
+.yr.active::before {
+  background: var(--amber);
+  border-color: var(--amber);
+  transform: scale(1.3);
+  box-shadow: 0 0 12px var(--amber-glow);
+}
+.yr h3 { font-size: clamp(2.2rem, 4.5vw, 3.2rem); color: var(--ink-soft); }
+.yr.active h3, .yr:hover h3 { color: var(--amber); }
+.yr p { max-width: 54ch; color: var(--ink-soft); font-size: .98rem; }
+.yr em {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: .86rem;
+  color: var(--amber);
+  font-style: normal;
+  font-weight: 500;
+  background: var(--amber-soft);
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+/* ========================================================
+   8. CLOSING & FOOTER (Koneksi Supabase Dijamin Aman)
+   ======================================================== */
+.closing { text-align: center; padding-block: clamp(80px, 14vw, 160px); }
+.closing h2 { font-size: clamp(2rem, 5vw, 4rem); max-width: 18ch; margin: 0 auto 18px; }
+.closing p { color: var(--ink-soft); max-width: 48ch; margin: 0 auto 28px; }
+
+footer {
+  padding: 24px clamp(20px, 5vw, 72px);
+  border-top: 1px solid var(--line);
+  font-size: .86rem;
+  color: var(--ink-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--bg-card);
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-secondary);
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-size: .82rem;
+  font-weight: 500;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #94A3B8;
+  display: inline-block;
+}
+.status-dot.online { background: #10B981; box-shadow: 0 0 8px #10B981; }
+.status-dot.error { background: #EF4444; }
+
+/* ========================================================
+   9. POPUP FLOATING AUDIO PLAYER & PLAYLIST
+   ======================================================== */
+.player-modal {
+  position: fixed;
+  top: 76px;
+  right: clamp(16px, 4vw, 48px);
+  width: min(380px, 92vw);
+  background: var(--bg-card);
+  color: var(--ink);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(35, 25, 15, 0.2), 0 0 0 1px var(--line);
+  z-index: 60;
+  padding: 22px;
+  display: none;
+}
+.player-modal.active { display: block; animation: popIn .25s var(--ease); }
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+.pm-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.pm-title { font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.pm-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--bg-secondary);
+}
+
+.now-playing {
+  background: var(--bg-secondary);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.np-track { font-size: 1.05rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.np-artist { font-size: .84rem; color: var(--amber); margin-top: 2px; font-weight: 500; }
+
+.player-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+}
+.p-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--bg-card);
+  color: var(--ink);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+.p-btn.play-main {
+  width: 48px;
+  height: 48px;
+  background: var(--amber);
+  color: #FFF;
+  box-shadow: 0 4px 14px var(--amber-glow);
+}
+
+.progress-wrap {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .78rem;
+  color: var(--ink-soft);
+}
+.prog-bar {
+  flex: 1;
+  height: 5px;
+  background: #DDD5C7;
+  border-radius: 99px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+.prog-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background: var(--amber);
+  border-radius: 99px;
+}
+
+.pl-label {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 8px;
+}
+.playlist-list {
+  max-height: 180px;
+  overflow-y: auto;
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.pl-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: .88rem;
+  cursor: pointer;
+}
+.pl-item:hover { background: var(--bg-secondary); }
+.pl-item.active {
+  background: var(--amber-soft);
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  font-weight: 600;
+}
+.pl-item-info { flex: 1; min-width: 0; }
+.pl-item-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: .88rem; }
+.pl-item-art { font-size: .76rem; opacity: .75; }
+
+.custom-music {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.custom-music-btn {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  font-weight: 500;
+  font-size: .82rem;
+}
+
+/* ========================================================
+   10. LIGHTBOX & DIALOGS
+   ======================================================== */
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(18, 15, 12, 0.95);
+  backdrop-filter: blur(12px);
+  color: var(--dark-text);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s var(--ease), visibility .4s;
+}
+.lb.open { opacity: 1; visibility: visible; }
+.lb-top { display: flex; justify-content: space-between; align-items: center; padding: 16px clamp(16px, 3vw, 36px); }
+.lb-top button { padding: 8px 18px; border: 1px solid rgba(250, 246, 238, 0.35); border-radius: 99px; }
+.stage { position: relative; display: grid; place-items: center; padding: 0 clamp(12px, 5vw, 80px); min-height: 0; }
+.media { width: 100%; height: 100%; display: grid; place-items: center; transition: opacity .3s; }
+.media.swap { opacity: 0; }
+.media img, .media video { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 10px; }
+.nv {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(250, 246, 238, 0.35);
+  background: rgba(18, 15, 12, 0.5);
+  color: #FFF;
+  font-size: 1.3rem;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+.prev { left: clamp(8px, 2vw, 24px); }
+.next { right: clamp(8px, 2vw, 24px); }
+
+.info { display: grid; gap: 12px 40px; padding: 20px clamp(16px, 5vw, 80px) 28px; }
+@media(min-width:820px){ .info { grid-template-columns: 1fr 1.2fr; align-items: start; } }
+.info h2 { font-size: clamp(1.6rem, 3.2vw, 2.4rem); }
+.meta { font-size: .88rem; color: #FED7AA; margin-top: 4px; }
+.story { color: #F5EFE6; font-size: 1.05rem; line-height: 1.65; max-width: 58ch; }
+.listen {
+  margin-top: 12px;
+  font-size: .84rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: 1px solid rgba(250, 246, 238, 0.35);
+  border-radius: 99px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bar {
+  max-width: 1280px;
+  margin: 0 auto 24px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: var(--amber-soft);
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--amber);
+}
+.bar[hidden] { display: none; }
+.mg { position: absolute; top: 10px; left: 10px; display: none; gap: 6px; z-index: 3; }
+body.manage .mg { display: flex; }
+.mg button { padding: 5px 12px; border-radius: 99px; background: #FFF; font-size: .8rem; font-weight: 500; }
+.mg button[data-a=del] { color: #DC2626; }
+
+dialog {
+  margin: auto;
+  border: 0;
+  border-radius: 16px;
+  padding: 28px;
+  width: min(520px, 92vw);
+  background: var(--bg-card);
+  color: var(--ink);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  max-height: 92vh;
+  overflow: auto;
+}
+dialog::backdrop { background: rgba(18, 15, 12, 0.65); backdrop-filter: blur(4px); }
+dialog form { display: grid; gap: 14px; }
+dialog h2 { font-size: 1.6rem; color: var(--ink); }
+dialog label { display: grid; gap: 5px; font-size: .88rem; color: var(--ink-soft); font-weight: 500; }
+dialog input, dialog select, dialog textarea {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  color: var(--ink);
+}
+dialog .row { display: flex; justify-content: flex-end; gap: 10px; align-items: center; margin-top: 6px; }
+dialog .row button:not(.cta) { padding: 10px 18px; border-radius: 99px; font-weight: 500; background: var(--bg-secondary); }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: #FFF;
+  padding: 10px 22px;
+  border-radius: 99px;
+  font-size: .9rem;
+  font-weight: 500;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+</style>
+</head>
+<body>
+
+<!-- HEADER & NAV -->
+<header class="nav" id="nav">
+  <a class="brand" href="#top">
+    <span class="brand-dot"></span>
+    <span>Rumah Kenangan</span>
+  </a>
+  
+  <nav class="nav-r">
+    <a href="#galeri">Galeri</a>
+    <a href="#perjalanan">Perjalanan</a>
+    
+    <div class="music-ctrls">
+      <!-- Tombol Putar Musik Cepat -->
+      <button class="sound-btn" id="soundBtn" aria-label="Putar musik latar">
+        <span class="bars"><i></i><i></i><i></i><i></i></span>
+        <span id="soundTxt">Putar Musik</span>
+      </button>
+
+      <!-- Tombol Buka Playlist -->
+      <button class="playlist-trigger" id="playlistTrigger" aria-label="Pilih lagu & playlist">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <span>Playlist</span>
+      </button>
+    </div>
+
+    <!-- Tombol Kelola Data Supabase -->
+    <button class="manage-btn" id="manage" aria-pressed="false">Kelola</button>
+  </nav>
+</header>
+
+<!-- POPUP FLOATING AUDIO PLAYER & PLAYLIST -->
+<div class="player-modal" id="playerModal">
+  <div class="pm-head">
+    <div class="pm-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.2">
+        <path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle>
+      </svg>
+      <span>Musik & Playlist</span>
+    </div>
+    <button class="pm-close" id="pmClose" aria-label="Tutup">&times;</button>
+  </div>
+
+  <div class="now-playing">
+    <div class="np-track" id="npTitle">Memuat lagu...</div>
+    <div class="np-artist" id="npArtist">Instrumen Akustik</div>
+    
+    <div class="progress-wrap">
+      <span id="curTime">0:00</span>
+      <div class="prog-bar" id="progBar"><div class="prog-fill" id="progFill"></div></div>
+      <span id="durTime">0:00</span>
+    </div>
+
+    <div class="player-controls">
+      <button class="p-btn" id="prevTrack" aria-label="Sebelumnya">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+      </button>
+      <button class="p-btn play-main" id="playPauseTrack" aria-label="Putar / Jeda">
+        <svg id="playIcon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="pauseIcon" style="display:none" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <button class="p-btn" id="nextTrack" aria-label="Berikutnya">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="pl-label">Daftar Lagu (Klik untuk memilih):</div>
+  <div class="playlist-list" id="playlistList"></div>
+
+  <div class="custom-music">
+    <button class="custom-music-btn" id="customFileBtn">📁 Putar Lagu dari HP / Laptop</button>
+    <input type="file" id="audioFileInput" accept="audio/*" style="display:none">
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main id="top">
+  <!-- HERO SECTION DENGAN FOTO KEBERSAMAAN KELAS -->
+  <div class="hero">
+    <div class="hero-bg" id="heroBg">
+      <img id="heroImg" src="foto-kebersamaan.jpg" alt="Foto Kebersamaan Satu Kelas" onerror="this.src='https://zrqxhykeruqyqdmpvazo.supabase.co/storage/v1/object/public/kenangan/1791966003947-hnpxn.jpg'">
+    </div>
+    
+    <div class="hero-pill">
+      <span>🎓</span> Arsip Kenangan Satu Kelas
+    </div>
+    
+    <!-- Tulisan "Hal-hal kecil" diperkecil & proporsional -->
+    <h1>
+      <span><b>Hal-hal kecil</b></span>
+      <span><b>yang tak ingin</b></span>
+      <span><b>kami lupakan.</b></span>
+    </h1>
+    
+    <!-- Teks Satu Kelas sesuai permintaan Anda -->
+    <div class="hero-foot">
+      <p>Satu kelas, satu rak foto yang tak pernah rapi. Kami kumpulkan semuanya di sini: kebersamaan di perkuliahan, dari ruang kelas, tugas kelompok, sampai tawa di sela jam kuliah.</p>
+      <a class="cta" href="#galeri">
+        <span>Buka Arsip Foto</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- GALLERY SECTION -->
+  <section id="galeri">
+    <div class="head">
+      <div>
+        <div class="head-tag">Dokumentasi Momen</div>
+        <h2>Arsip kenangan</h2>
+      </div>
+      <p>Pilih berdasarkan momen, jenis media, atau tahun kuliah. Klik foto mana pun untuk melihat ukuran penuh dan membaca ceritanya.</p>
+    </div>
+    
+    <div class="filters">
+      <div class="group" id="fMoment" role="group" aria-label="Momen"></div>
+      <div class="group" id="fType" role="group" aria-label="Media"></div>
+      <div class="count" id="count"></div>
+    </div>
+    
+    <div class="bar" id="bar" hidden>
+      <button class="cta" id="add">Tambah Kenangan</button>
+      <button class="chip" id="logout" style="border:1px solid var(--amber);background:#fff">Keluar</button>
+      <span>Mode kelola aktif. Gunakan tombol Ubah atau Hapus di setiap foto.</span>
+    </div>
+    
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- TIMELINE PERJALANAN KULIAH -->
+  <section class="timeline" id="perjalanan">
+    <div class="head">
+      <div>
+        <div class="head-tag">Lini Masa Kuliah</div>
+        <h2>Dari semester ke semester</h2>
+      </div>
+      <p>Pilih satu tahun atau semester untuk melihat kenangan di dalamnya. Klik lagi untuk kembali ke semua foto.</p>
+    </div>
+    <div class="tl" id="tl">
+      <div class="tl-fill" id="tlFill"></div>
+    </div>
+  </section>
+
+  <!-- CLOSING SECTION -->
+  <section class="closing">
+    <h2>Masih ada rak kosong untuk cerita berikutnya.</h2>
+    <p>Setiap foto di sini dulunya hanya hari perkuliahan biasa. Kami baru tahu betapa berharganya setelah waktu itu berlalu.</p>
+    <a class="cta" href="#top">Kembali ke Atas ↑</a>
+  </section>
+</main>
+
+<!-- FOOTER DENGAN STATUS SUPABASE AMAN -->
+<footer>
+  <div>
+    <strong>Rumah Kenangan</strong> — Disusun penuh cerita oleh satu kelas.
+  </div>
+  <div class="status-pill">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="status">Memeriksa koneksi Supabase...</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Tampilan kenangan">
+  <div class="lb-top">
+    <span id="lbCount"></span>
+    <button id="lbClose">Tutup (Esc)</button>
+  </div>
+  <div class="stage">
+    <button class="nv prev" id="prev" aria-label="Sebelumnya">&#8592;</button>
+    <div class="media" id="media"></div>
+    <button class="nv next" id="next" aria-label="Berikutnya">&#8594;</button>
+  </div>
+  <div class="info">
+    <div>
+      <h2 id="lbTitle"></h2>
+      <div class="meta" id="lbMeta"></div>
+    </div>
+    <div>
+      <p class="story" id="lbStory"></p>
+      <button class="listen" id="listen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        <span>Dengarkan Catatan Suara</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- DIALOGS (TAMBAH / UBAH & LOGIN SUPABASE) -->
+<dialog id="dlg">
+  <form id="frm">
+    <h2 id="dTitle">Tambah kenangan</h2>
+    <label>Foto atau video
+      <input type="file" id="fFile" accept="image/*,video/*">
+    </label>
+    <label>Judul kenangan
+      <input id="fTitle" required maxlength="80" placeholder="Misal: Seminar Proposal / Hangout">
+    </label>
+    <label>Tanggal momen
+      <input type="date" id="fDate" required>
+    </label>
+    <label>Lokasi
+      <input id="fPlace" maxlength="80" placeholder="Misal: Gedung Kuliah / Kafe">
+    </label>
+    <label>Kategori Momen
+      <select id="fMoment">
+        <option>Perkuliahan</option>
+        <option>Liburan</option>
+        <option>Perayaan</option>
+        <option>Sehari-hari</option>
+        <option>Spesial</option>
+      </select>
+    </label>
+    <label>Ukuran di galeri
+      <select id="fSize">
+        <option value="">Normal</option>
+        <option value="t">Tinggi</option>
+        <option value="w">Lebar</option>
+        <option value="f">Besar (Fitur)</option>
+      </select>
+    </label>
+    <label>Cerita singkat di balik foto
+      <textarea id="fStory" rows="3" maxlength="400" placeholder="Ceritakan apa yang seru dari hari ini..."></textarea>
+    </label>
+    <div class="row">
+      <button type="button" id="dCancel">Batal</button>
+      <button class="cta" type="submit">Simpan ke Supabase</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="login">
+  <form id="lform">
+    <h2>Masuk Pemilik Arsip</h2>
+    <p style="font-size:.85rem;color:var(--ink-soft);margin-bottom:12px">Masuk untuk menambah, mengubah, atau menghapus foto kenangan.</p>
+    <label>Email Pemilik
+      <input type="email" id="lEmail" required autocomplete="username">
+    </label>
+    <label>Kata Sandi
+      <input type="password" id="lPass" required autocomplete="current-password">
+    </label>
+    <p id="lErr" style="color:#DC2626;font-size:.85rem;min-height:1.2em"></p>
+    <div class="row">
+      <button type="button" id="lCancel">Batal</button>
+      <button class="cta" type="submit">Masuk</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<!-- SUPABASE CLIENT -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script>
+window.supabase || document.write('<script src="https://unpkg.com/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"><\\/script>');
+</script>
+
+<script>
+/* ========================================================
+   1. PLAYLIST MUSIK (Bisa Ditambah / Diganti Sesuka Hati)
+   Anda bisa mengganti URL di bawah dengan file MP3 apa saja!
+   ======================================================== */
+const PLAYLIST = [
+  {
+    title: "Nada Akustik Kampus",
+    artist: "Instrumen Akustik",
+    src: "https://raw.githubusercontent.com/rafaelreis-hotmart/Audio-Sample-files/master/sample.mp3"
+  },
+  {
+    title: "Irama Santai Jam Kosong",
+    artist: "Lofi Santai",
+    src: "https://raw.githubusercontent.com/rafaelreis-hotmart/Audio-Sample-files/master/sample2.mp3"
+  },
+  {
+    title: "Melodi Pagi Menuju Kampus",
+    artist: "Piano Lembut",
+    src: "https://raw.githubusercontent.com/rafaelreis-hotmart/Audio-Sample-files/master/sample.mp3"
+  }
+];
+
+let curTrack = 0;
+let isAudioPlaying = false;
+const audioPlayer = new Audio();
+audioPlayer.preload = 'metadata';
+
+const soundBtn = document.getElementById('soundBtn');
+const soundTxt = document.getElementById('soundTxt');
+const playlistTrigger = document.getElementById('playlistTrigger');
+const playerModal = document.getElementById('playerModal');
+const pmClose = document.getElementById('pmClose');
+const playlistList = document.getElementById('playlistList');
+const npTitle = document.getElementById('npTitle');
+const npArtist = document.getElementById('npArtist');
+const playPauseTrack = document.getElementById('playPauseTrack');
+const playIcon = document.getElementById('playIcon');
+const pauseIcon = document.getElementById('pauseIcon');
+const prevTrackBtn = document.getElementById('prevTrack');
+const nextTrackBtn = document.getElementById('nextTrack');
+const progBar = document.getElementById('progBar');
+const progFill = document.getElementById('progFill');
+const curTimeEl = document.getElementById('curTime');
+const durTimeEl = document.getElementById('durTime');
+const customFileBtn = document.getElementById('customFileBtn');
+const audioFileInput = document.getElementById('audioFileInput');
+
+function fmtTime(sec) {
+  if (isNaN(sec) || !isFinite(sec)) return "0:00";
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+function renderPlaylistUI() {
+  playlistList.innerHTML = PLAYLIST.map((t, idx) => `
+    <div class="pl-item ${idx === curTrack ? 'active' : ''}" data-idx="${idx}">
+      <div class="pl-item-info">
+        <div class="pl-item-title">${idx + 1}. ${t.title}</div>
+        <div class="pl-item-art">${t.artist}</div>
+      </div>
+      ${idx === curTrack && isAudioPlaying ? '<span style="font-size:.75rem">▶</span>' : ''}
+    </div>
+  `).join('');
+
+  playlistList.querySelectorAll('.pl-item').forEach(el => {
+    el.onclick = () => loadTrack(+el.dataset.idx, true);
+  });
+}
+
+function loadTrack(idx, autoPlay = false) {
+  curTrack = (idx + PLAYLIST.length) % PLAYLIST.length;
+  const track = PLAYLIST[curTrack];
+  audioPlayer.src = track.src;
+  npTitle.textContent = track.title;
+  npArtist.textContent = track.artist;
+  renderPlaylistUI();
+
+  if (autoPlay) {
+    audioPlayer.play().then(() => setPlayState(true)).catch(() => setPlayState(false));
+  }
+}
+
+function setPlayState(playing) {
+  isAudioPlaying = playing;
+  soundBtn.classList.toggle('playing', playing);
+  soundBtn.setAttribute('aria-pressed', playing);
+  soundTxt.textContent = playing ? 'Musik Nyala' : 'Putar Musik';
+  playIcon.style.display = playing ? 'none' : 'block';
+  pauseIcon.style.display = playing ? 'block' : 'none';
+  renderPlaylistUI();
+}
+
+function toggleAudio() {
+  if (!audioPlayer.src) {
+    loadTrack(curTrack, true);
+    return;
+  }
+  if (isAudioPlaying) {
+    audioPlayer.pause();
+    setPlayState(false);
+  } else {
+    audioPlayer.play().then(() => setPlayState(true)).catch(() => setPlayState(false));
+  }
+}
+
+soundBtn.onclick = toggleAudio;
+playPauseTrack.onclick = toggleAudio;
+prevTrackBtn.onclick = () => loadTrack(curTrack - 1, true);
+nextTrackBtn.onclick = () => loadTrack(curTrack + 1, true);
+
+audioPlayer.ontimeupdate = () => {
+  if (audioPlayer.duration) {
+    const p = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    progFill.style.width = p + '%';
+    curTimeEl.textContent = fmtTime(audioPlayer.currentTime);
+    durTimeEl.textContent = fmtTime(audioPlayer.duration);
+  }
+};
+
+audioPlayer.onended = () => loadTrack(curTrack + 1, true);
+
+progBar.onclick = e => {
+  const rect = progBar.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  if (audioPlayer.duration) audioPlayer.currentTime = ratio * audioPlayer.duration;
+};
+
+playlistTrigger.onclick = () => playerModal.classList.toggle('active');
+pmClose.onclick = () => playerModal.classList.remove('active');
+document.addEventListener('click', e => {
+  if (playerModal.classList.contains('active') && !playerModal.contains(e.target) && !playlistTrigger.contains(e.target)) {
+    playerModal.classList.remove('active');
+  }
+});
+
+customFileBtn.onclick = () => audioFileInput.click();
+audioFileInput.onchange = e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const blobUrl = URL.createObjectURL(file);
+  const title = file.name.replace(/\.[^/.]+$/, "");
+  PLAYLIST.unshift({ title: title, artist: "Pilihan Saya", src: blobUrl });
+  loadTrack(0, true);
+  toast("Lagu lokal '" + title + "' diputar");
+};
+
+loadTrack(0, false);
+
+/* ========================================================
+   2. DATA & STATE KENANGAN
+   ======================================================== */
+const U = (id, w = 1200) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=75`;
+
+const MEMORIES = [
+  { id: 1, title: 'Kebersamaan Satu Kelas', date: '2026-10-14', place: 'Studio & Kampus', moment: 'Perkuliahan', type: 'foto', size: 'f', img: '1523240795612-9a054b0db644', story: 'Satu angkatan dengan jaket oranye kebanggaan. Dari tugas deadline mepet sampai tertawa lepas bersama.' },
+  { id: 2, title: 'Ulang tahun kawan sekelas', date: '2025-11-02', place: 'Kantin Kampus', moment: 'Perayaan', type: 'foto', size: '', img: '1530103862676-de8c9debad1d', story: 'Kue seadanya dan lilin yang padam ditiup angin. Tawa di hari itu yang paling kami rindukan.' },
+  { id: 3, title: 'Kopi dan tugas kelompok', date: '2025-02-09', place: 'Kafe Dekat Kampus', moment: 'Sehari-hari', type: 'foto', size: 't', img: '1495474472287-4d71bcdd2085', story: 'Niatnya belajar bersama dari sore, ujung-ujungnya malah cerita santai sampai larut.' },
+  { id: 4, title: 'Menyusuri jalan santai', date: '2024-08-23', place: 'Puncak Liburan', moment: 'Liburan', type: 'foto', size: 'w', img: '1441974231531-c6227db76b6e', story: 'Liburan semester yang akhirnya terealisasi setelah berkali-kali direncanakan di grup kelas.' },
+  { id: 5, title: 'Presentasi dan ruang kelas', date: '2024-03-15', place: 'Ruang Kuliah', moment: 'Perkuliahan', type: 'foto', size: '', img: '1488646953014-85cb44e25828', story: 'Pagi-pagi rebutan colokan laptop dan latihan presentasi di depan teman sendiri.' },
+  { id: 6, title: 'Makan bersama sehabis ujian', date: '2023-09-30', place: 'Warung Favorit', moment: 'Sehari-hari', type: 'foto', size: '', img: '1504674900247-0877df9cc836', story: 'Perasaan lega yang luar biasa setelah minggu ujian semester yang melelahkan.' }
+];
+
+const YEARS = {
+  2023: 'Awal langkah perkuliahan. Masih canggung mencari teman dan adaptasi mata kuliah.',
+  2024: 'Masa-masa paling sibuk: tugas menumpuk, organisasi, dan diskusi kelompok.',
+  2025: 'Semester lanjut yang penuh tantangan, tapi kekompakan kelas semakin terasa.',
+  2026: 'Tahun kebersamaan yang takkan terlupakan. Satu kelas, satu cerita abadi.'
+};
+
+const $ = s => document.querySelector(s);
+const st = { m: 'Semua', t: 'Semua', y: null };
+const fmt = d => new Date(d).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+const yr = m => (m.date || '').slice(0, 4);
+let DATA = [...MEMORIES];
+
+const list = () => DATA.filter(m => 
+  (st.m === 'Semua' || m.moment === st.m) &&
+  (st.t === 'Semua' || m.type === st.t.toLowerCase()) &&
+  (!st.y || yr(m) === st.y)
+);
+
+const nav = $('#nav');
+addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 50), { passive: true });
+
+function chips(el, items, key) {
+  el.innerHTML = items.map(i => `<button class="chip" aria-pressed="${st[key] === i}" data-v="${i}">${i}</button>`).join('');
+  el.onclick = e => {
+    const b = e.target.closest('.chip');
+    if (!b) return;
+    st[key] = b.dataset.v;
+    sync();
+  };
+}
+
+function sync() {
+  chips($('#fMoment'), ['Semua', 'Perkuliahan', 'Liburan', 'Perayaan', 'Sehari-hari', 'Spesial'], 'm');
+  chips($('#fType'), ['Semua', 'Foto', 'Video'], 't');
+  renderGallery();
+  renderYears();
+}
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) {
+    e.target.classList.add('in');
+    io.unobserve(e.target);
+  }
+}), { threshold: .1 });
+
+function renderGallery() {
+  const g = $('#gallery'), items = list();
+  $('#count').textContent = items.length + ' kenangan' + (st.y ? ' di ' + st.y : '');
+  
+  if (!items.length) {
+    g.innerHTML = '<p class="empty">Belum ada kenangan untuk filter ini.</p>';
+    return;
+  }
+  
+  g.innerHTML = items.map((m, i) => `
+    <article class="tile ${m.size || ''}" tabindex="0" role="button" data-i="${i}" aria-label="${m.title}" style="transition-delay:${Math.min(i, 6) * 45}ms">
+      ${m.url && m.type === 'video' 
+        ? `<video src="${mu(m)}#t=0.5" muted playsinline preload="metadata"></video>` 
+        : `<img src="${pic(m, m.size === 'f' ? 1400 : 800)}" alt="${m.title}, ${m.place}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=75'">`
+      }
+      <div class="mg">
+        <button data-a="edit">Ubah</button>
+        <button data-a="del">Hapus</button>
+      </div>
+      ${m.type === 'video' ? '<span class="play-badge" aria-label="Video"></span>' : ''}
+      <div class="cap">
+        <h3>${m.title}</h3>
+        <small>${fmt(m.date)}${m.place ? ' • ' + m.place : ''}</small>
+      </div>
+    </article>
+  `).join('');
+  
+  g.querySelectorAll('.tile').forEach(t => io.observe(t));
+}
+
+$('#gallery').addEventListener('click', e => {
+  const t = e.target.closest('.tile');
+  if (!t) return;
+  const a = e.target.closest('[data-a]'), m = list()[+t.dataset.i];
+  if (a) {
+    a.dataset.a === 'edit' ? openForm(m) : delMem(m);
+    return;
+  }
+  openLB(+t.dataset.i);
+});
+
+$('#gallery').addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('tile')) {
+    e.preventDefault();
+    openLB(+e.target.dataset.i);
+  }
+});
+
+function renderYears() {
+  const tl = $('#tl');
+  tl.querySelectorAll('.yr').forEach(n => n.remove());
+  const yearList = [...new Set(DATA.map(yr).filter(Boolean))].sort();
+  
+  yearList.forEach(y => {
+    const n = DATA.filter(m => yr(m) === y).length;
+    const b = document.createElement('button');
+    b.className = 'yr' + (st.y === y ? ' active' : '');
+    b.innerHTML = `<h3>${y}</h3><div><p>${YEARS[y] || 'Tahun penuh cerita berharga.'}</p><em>${n} kenangan${st.y === y ? ' (sedang dipilih)' : ''}</em></div>`;
+    b.onclick = () => {
+      st.y = st.y === y ? null : y;
+      sync();
+      if (st.y) $('#galeri').scrollIntoView({ behavior: 'smooth' });
+    };
+    tl.appendChild(b);
+  });
+  tlScroll();
+}
+
+function tlScroll() {
+  const tl = $('#tl'), r = tl.getBoundingClientRect();
+  const p = Math.min(Math.max((innerHeight * .6 - r.top) / r.height, 0), 1);
+  $('#tlFill').style.height = (p * (r.height - 12)) + 'px';
+}
+addEventListener('scroll', tlScroll, { passive: true });
+
+/* ============ LIGHTBOX ============ */
+const lb = $('#lb');
+let cur = 0, cl = [], lastFocus;
+
+function openLB(i) {
+  cl = list();
+  cur = i;
+  lastFocus = document.activeElement;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  show(true);
+  $('#lbClose').focus();
+}
+
+function closeLB() {
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+  $('#media').innerHTML = '';
+  speechSynthesis.cancel();
+  lastFocus && lastFocus.focus();
+}
+
+function show(first) {
+  const m = cl[cur], md = $('#media');
+  const paint = () => {
+    md.innerHTML = m.type === 'video' && (m.src || m.url)
+      ? `<video src="${mu(m) || m.src}" controls playsinline autoplay></video>`
+      : `<img src="${pic(m, 1600)}" alt="${m.title}">`;
+    $('#lbTitle').textContent = m.title;
+    $('#lbMeta').textContent = fmt(m.date) + (m.place ? ' • ' + m.place : '') + ' • ' + m.moment;
+    $('#lbStory').textContent = m.story || 'Tidak ada cerita tertulis untuk foto ini.';
+    $('#lbCount').textContent = (cur + 1) + ' dari ' + cl.length;
+    md.classList.remove('swap');
+  };
+  speechSynthesis.cancel();
+  if (first) paint();
+  else {
+    md.classList.add('swap');
+    setTimeout(paint, 260);
+  }
+}
+
+const go = d => { cur = (cur + d + cl.length) % cl.length; show(); };
+$('#prev').onclick = () => go(-1);
+$('#next').onclick = () => go(1);
+$('#lbClose').onclick = closeLB;
+lb.addEventListener('click', e => { if (e.target.classList.contains('stage')) closeLB(); });
+
+addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLB();
+  if (e.key === 'ArrowLeft') go(-1);
+  if (e.key === 'ArrowRight') go(1);
+});
+
+$('#listen').onclick = () => {
+  if (speechSynthesis.speaking) { speechSynthesis.cancel(); return; }
+  const text = cl[cur].story || cl[cur].title;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'id-ID';
+  u.rate = .92;
+  speechSynthesis.speak(u);
+};
+
+/* ============ SUPABASE DATA (100% AMAN & TERHUBUNG) ============ */
+const SB_URL = 'https://zrqxhykeruqyqdmpvazo.supabase.co';
+const SB_KEY = 'sb_publishable_CmWrLH308Nc8GjM8r9i_NA_uCOrYMah';
+const BUCKET = 'kenangan';
+
+let sb = null, sbWhy = !window.supabase ? 'pustaka Supabase gagal dimuat' : '';
+try {
+  if (SB_URL && SB_KEY && window.supabase) {
+    sb = supabase.createClient(SB_URL, SB_KEY);
+  }
+} catch (e) {
+  sbWhy = 'kunci ditolak: ' + e.message;
+}
+
+const setStatus = (t, isSuccess = true) => {
+  const s = $('#status'), dot = $('#statusDot');
+  if (s) s.textContent = t;
+  if (dot) dot.className = 'status-dot ' + (isSuccess ? 'online' : 'error');
+};
+
+const mu = m => m.url || null;
+const pic = (m, w) => m.url || (m.img ? U(m.img, w) : 'foto-kebersamaan.jpg');
+let isOwner = false;
+
+function toast(t, ms = 2600) {
+  const e = $('#toast');
+  e.textContent = t;
+  e.classList.add('show');
+  setTimeout(() => e.classList.remove('show'), ms);
+}
+
+const pub = p => sb.storage.from(BUCKET).getPublicUrl(p).data.publicUrl;
+
+async function load() {
+  if (!sb) {
+    DATA = [...MEMORIES];
+    setStatus('Mode contoh: Supabase belum terhubung (' + sbWhy + ')', false);
+    sync();
+    return;
+  }
+  
+  try {
+    const { data, error } = await sb.from('memories').select('*').order('date', { ascending: false });
+    if (error) throw error;
+    
+    if (data && data.length > 0) {
+      setStatus('Terhubung ke Supabase • ' + data.length + ' kenangan tersimpan', true);
+      DATA = data.map(r => ({
+        ...r,
+        size: r.size || '',
+        place: r.place || '',
+        story: r.story || '',
+        url: pub(r.path)
+      }));
+    } else {
+      setStatus('Terhubung ke Supabase • Data siap disimpan', true);
+      DATA = [...MEMORIES];
+    }
+  } catch (err) {
+    console.warn("Koneksi Supabase:", err);
+    toast('Gagal memuat Supabase: ' + (err.message || err), 4000);
+    setStatus('Supabase: ' + (err.message || 'Gagal memuat') + ' (menampilkan cadangan)', false);
+    DATA = [...MEMORIES];
+  }
+
+  if (st.y && !DATA.some(m => yr(m) === st.y)) st.y = null;
+  sync();
+}
+
+function shrink(f) {
+  return new Promise(res => {
+    if (!f.type.startsWith('image/') || f.type === 'image/gif') return res(f);
+    const i = new Image(), u = URL.createObjectURL(f);
+    i.onload = () => {
+      const k = Math.min(1, 2000 / Math.max(i.width, i.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(i.width * k);
+      c.height = Math.round(i.height * k);
+      c.getContext('2d').drawImage(i, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(u);
+      c.toBlob(b => res(b || f), 'image/jpeg', .85);
+    };
+    i.onerror = () => res(f);
+    i.src = u;
+  });
+}
+
+async function upload(f) {
+  const isV = f.type.startsWith('video/');
+  if (isV && f.size > 50 * 1024 * 1024) throw new Error('Video lebih dari 50 MB. Kecilkan dulu.');
+  const b = isV ? f : await shrink(f);
+  const ext = b === f ? (f.name.split('.').pop() || 'bin').toLowerCase() : 'jpg';
+  const path = Date.now() + '-' + Math.random().toString(36).slice(2, 7) + '.' + ext;
+  const { error } = await sb.storage.from(BUCKET).upload(path, b, { contentType: b.type || f.type, cacheControl: '31536000' });
+  if (error) throw error;
+  return { path, type: isV ? 'video' : 'foto' };
+}
+
+const dlg = $('#dlg');
+let editing = null;
+
+function openForm(m) {
+  editing = m || null;
+  $('#dTitle').textContent = m ? 'Ubah kenangan' : 'Tambah kenangan';
+  $('#fFile').value = '';
+  $('#fFile').required = !m;
+  $('#fTitle').value = m ? m.title : '';
+  $('#fDate').value = m ? m.date : new Date().toISOString().slice(0, 10);
+  $('#fPlace').value = m ? m.place : '';
+  $('#fMoment').value = m ? m.moment : 'Perkuliahan';
+  $('#fSize').value = m ? m.size : '';
+  $('#fStory').value = m ? m.story : '';
+  dlg.showModal();
+}
+
+$('#dCancel').onclick = () => dlg.close();
+
+$('#frm').onsubmit = async e => {
+  e.preventDefault();
+  if (!sb || !isOwner) {
+    toast("Anda harus masuk sebagai pemilik terlebih dahulu!");
+    return;
+  }
+  const btn = $('#frm [type=submit]');
+  btn.disabled = true;
+  btn.textContent = 'Menyimpan ke Supabase...';
+  
+  try {
+    const f = $('#fFile').files[0];
+    const row = {
+      title: $('#fTitle').value.trim(),
+      date: $('#fDate').value,
+      place: $('#fPlace').value.trim(),
+      moment: $('#fMoment').value,
+      size: $('#fSize').value,
+      story: $('#fStory').value.trim()
+    };
+    let old = null;
+    if (f) {
+      const u = await upload(f);
+      row.path = u.path;
+      row.type = u.type;
+      if (editing) old = editing.path;
+    }
+    const q = editing ? sb.from('memories').update(row).eq('id', editing.id) : sb.from('memories').insert(row);
+    const { error } = await q;
+    if (error) throw error;
+    if (old) await sb.storage.from(BUCKET).remove([old]);
+    
+    const was = !!editing;
+    dlg.close();
+    await load();
+    toast(was ? 'Perubahan disimpan!' : 'Kenangan baru ditambahkan!');
+  } catch (err) {
+    toast('Gagal menyimpan: ' + (err.message || err), 7000);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Simpan ke Supabase';
+  }
+};
+
+async function delMem(m) {
+  if (!m.path) {
+    toast('Foto contoh bawaan tidak bisa dihapus.');
+    return;
+  }
+  if (!confirm('Hapus kenangan "' + m.title + '"? Tindakan ini tidak bisa dibatalkan.')) return;
+  const { error } = await sb.from('memories').delete().eq('id', m.id);
+  if (error) {
+    toast('Gagal menghapus: ' + error.message, 6000);
+    return;
+  }
+  await sb.storage.from(BUCKET).remove([m.path]);
+  await load();
+  toast('Kenangan berhasil dihapus');
+}
+
+function setManage(on) {
+  document.body.classList.toggle('manage', on);
+  $('#bar').hidden = !on;
+  $('#manage').setAttribute('aria-pressed', on);
+  $('#manage').textContent = on ? 'Selesai' : 'Kelola';
+  if (on) $('#galeri').scrollIntoView({ behavior: 'smooth' });
+}
+
+$('#manage').onclick = () => {
+  if (!sb) {
+    alert('Supabase belum terhubung.');
+    return;
+  }
+  if (document.body.classList.contains('manage')) return setManage(false);
+  isOwner ? setManage(true) : $('#login').showModal();
+};
+
+$('#add').onclick = () => openForm();
+$('#lCancel').onclick = () => $('#login').close();
+
+$('#lform').onsubmit = async e => {
+  e.preventDefault();
+  const { error } = await sb.auth.signInWithPassword({
+    email: $('#lEmail').value.trim(),
+    password: $('#lPass').value
+  });
+  if (error) {
+    $('#lErr').textContent = 'Email atau kata sandi pemilik salah.';
+    return;
+  }
+  isOwner = true;
+  $('#lErr').textContent = '';
+  $('#lPass').value = '';
+  $('#login').close();
+  setManage(true);
+  toast("Berhasil masuk sebagai pemilik");
+};
+
+$('#logout').onclick = async () => {
+  await sb.auth.signOut();
+  isOwner = false;
+  setManage(false);
+  toast('Anda sudah keluar');
+};
+
+(async () => {
+  if (sb) {
+    const { data } = await sb.auth.getSession();
+    isOwner = !!(data && data.session);
+  }
+  load();
+})();
+</script>
+</body>
+</html>
